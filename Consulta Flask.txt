@@ -1,0 +1,24 @@
+Consulta Flask
+para iniciar la aplicacion de flask tenemos que realizar estos pasos primero
+crear un ambiente virtual en python ejemplo:
+
+------python -m venv namenewenv
+
+una vez ahi hacemos un cd a namenewenv
+y activamos en v env
+para windows es #.\scripts\activate ///// unix source bin/activate
+
+ahi intalamos flask
+------pip install flask
+
+python -m pdb  testpy.py   ejecuta la applicacion de flask con la herramienta debbuger  si en el codigo tenemos la linea 
+------import pdb ; pdb.set_trace()
+esta permitira en una funcion realizar el debbuging linea por linea
+
+
+
+en algunas ocaciones no funciona python name.py entonces ahi otra forma de iniccializar la app , para esto podemos xonsultar con el comando
+------flask
+y ver que variable asignada tiene la variable FLASK_APP='name_ejemplo.py' si no esta nuestro py lo tenemos que asignar en win es con set FLASK_APP=''
+y ejecutar la linea de comando
+------flask run
