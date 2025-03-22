@@ -1,0 +1,159 @@
+{
+    "data":
+    {
+        "CARGA_CONTRATOS_DIARIO":{
+                "source": {"table":"perimetro_buro_yyyyMMdd","fileName":"HRC_CONTRATOS_BURO_DIARIO","query":false,
+                           "esquema":"BURO","path":"/SASUser/RIESGO/rti/public/Buro","periodicity":"D",
+                           "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":false },
+                "filter": [
+                    {"filter1":"trim(cod_estado_credito) IN (\"A\",\"O\",\"C\",\"B\")"}
+                ],
+                "select": [
+                    {"select1":["num_cred","cod_producto","cod_subproducto","TRANSLATE(put(fec_info,yymmdd10.),'','.') as fec_info","put(imp_int_exig_mo,11.4 ) as imp_int_exig_mo",
+                    "put(imp_int_noexig_mo,11.4 ) as imp_int_noexig_mo","put(imp_cap_exig_mo,11.4 ) as imp_cap_exig_mo","put(imp_cap_noexig_mo,11.4 ) as imp_cap_noexig_mo",
+                    "put(imp_concedido_mo,11.4 ) as imp_concedido_mo","cod_estado_credito"]}
+
+                ]
+
+            },
+
+         "CONTRATOS_MENSUAL_SAS":{
+                "source": {"table":"hrc_tm_creditos_yyyyMM", "fileName":"CONTRATOS_MENSUAL_SAS","query":false,
+                           "esquema":"HRC", "path":"/SASUser/RIESGO/rti/public/hrc", "periodicity":"M",
+                           "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":false },
+                "filter": [
+                    {"filter1":"trim(cod_estado_credito) in(\"A\",\"B\") and trim(desc_sistema_origen) IS NOT NULL and trim(desc_sistema_origen) not in(\"Bursa\",\"Empleados\",\"HRC\") and ((trim(desc_segmento_loc_3) in (\"Actividades Corporativas\",\"Banca Corporativa Global\", \"Banca Privada\", \"Banca de Empresas\",\"Banca de Instituciones\",\"Banca PyMEs\") and (desc_segmento_loc_4 ne \"Credito Nomina\")) or trim(desc_subsegmento_banca_seg) in(\"Tarjeta De Credito Access Morales\",\"Tarjeta De Credito Access Pymes\",\"Tarjeta De Credito Agro\",\"Tarjeta De Credito Agil\") or (trim(cod_producto) || trim(cod_subproducto)) in (\"752409\",\"752410\",\"752302\",\"752303\",\"741301\",\"742301\",\"742302\",\"051637\",\"051644\",\"051663\"))"}
+                ],
+                "select": [
+                            {"select1":["num_cred","desc_sistema_origen","cod_actividad_economica","desc_nombre_cliente","num_cliente_seguimiento","cod_tipo_persona","desc_rfc","cod_unidad_negocio","  put(pct_tasa_cobr,11.4 ) as pct_tasa_cobr ","cod_tasa","TRANSLATE(put(fec_vencimiento,yymmdd10.),'','.') as fec_vencimiento","cod_moneda","cod_producto","cod_subproducto","put(imp_limite_credito,11.2) as imp_limite_credito","cod_bloqueo","put(imp_cap_noexig,11.2) as imp_cap_noexig","put(imp_contingente,11.2) as imp_contingente","put(imp_cap_exig,11.2) as imp_cap_exig","put(imp_int_noexig,11.2) as imp_int_noexig","put(imp_int_exig,11.2) as imp_int_exig","put(imp_int_suspen,11.2) as imp_int_suspen","put(imp_total_riesgo,11.2) as imp_total_riesgo","TRANSLATE(put(fec_ult_amort_incump_cap,yymmdd10.),'','.') as fec_ult_amort_incump_cap","TRANSLATE(put(fec_ult_amort_incump_int,yymmdd10.),'','.') as fec_ult_amort_incump_int","TRANSLATE(put(fec_info,yymmdd10.),'','.') as fec_info","num_suc_titular","desc_reg_suc_titular","TRANSLATE(put(fec_formaliza,yymmdd10.),'','.') as fec_formaliza","flg_mora","flg_revolvente","num_dias_atraso","put(imp_concedido,11.2) as imp_concedido","desc_unidad_negocio","cod_estado_credito","desc_estado_credito","flg_entidad_gubernamental","flg_entidad_financiera","flg_intragrupo","desc_segmento_loc_1","desc_segmento_loc_2","desc_segmento_loc_3","desc_segmento_loc_4","desc_segmento_loc_5","desc_subclasif_gob_fin","desc_subsegmento_banca_seg","flg_ffee","put(imp_disponible,11.2) as imp_disponible","cod_entidad","cod_ent_390","desc_canal","desc_ent_fed_suc_titular","desc_feve_final","desc_modelo_rating_final","desc_tipo_solicitud","TRANSLATE(put(fec_entrada_mora,yymmdd10.),'','.') as fec_entrada_mora","TRANSLATE(put(fec_prox_corte,yymmdd10.),'','.') as fec_prox_corte","flg_reestructura","flg_tasa_variable","put(imp_tipo_cambio,11.2) as imp_tipo_cambio","num_npv_cnbv","num_puntos_spread","put(pct_tasa_base, 11.4) as pct_tasa_base","put(imp_acum_cte_total_riesgo_loc,11.2) as imp_acum_cte_total_riesgo_loc","put(imp_acum_cte_mora_loc,11.2) as imp_acum_cte_mora_loc","put(imp_int_noexig,11.2) as imp_int_noexig as Imp_int_noexig2","cod_sector_contable","cod_actividad_economica as Cod_actividad_economica2","cod_act_esp_cnbv","cod_act_esp_banxico","cod_act_esp_nace","cod_act_esp_sat","num_cliente_operativo","num_npv","cod_tipo_amortiza","desc_tipo_amortiza","TRANSLATE(put(fec_vencimiento_renovacion,yymmdd10.),'','.') as fec_vencimiento_renovacion","TRANSLATE(put(fec_vencimiento,yymmdd10.),'','.') as fec_vencimiento2","TRANSLATE(put(fec_formaliza,yymmdd10.),'','.') as fec_formaliza2","desc_vista_producto"," put(pct_tasa_cobr,11.4 )  as Pct_tasa_cobr2 ","cod_ccf","flg_intercompania","num_linea_matriz"]}]
+},
+        "GARANTIAS_SEMANALES_SAS":{
+                "source": {"table":"hrc_td_garantias_yyyyMMdd", "fileName":"HRC_GARANTIAS_BURO_SEMANAL","query":true,
+                           "esquema":"BURO", "path":"/SASUser/RIESGO/rti/public/hrc", "periodicity":"D",
+                           "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":true },
+                "filter": [
+                                        {"filter1":""}
+                ],
+                "select": [
+                    {"select1":[]}
+                ],
+                "query": [
+                    {   "query1": ["SELECT",
+                            "    num_gtia,num_cred,cod_tipo_gtia,desc_tipo_gtia,cod_clase_gtia,desc_cod_clase_gtia,cod_subtipo_gtia,put(imp_valor_final,11.4) as imp_valor_final,num_cliente_gtia_personal  ",
+                            " FROM BURO.hrc_td_garantias_yyyyMMdd ",
+                            "    where num_cred IN(SELECT num_cred FROM BURO.hrc_td_creditos_yyyyMMdd) "
+                        ]
+                    }
+                ]
+            },
+        "CONTRATOS_SEMANAL_BURO_CORTO":{
+                "source": {"table":"perimetro_buro_yyyyMMdd", "fileName":"HRC_CONTRATOS_BURO_CORTO","query":false,
+                           "esquema":"BURO", "path":"/SASUser/RIESGO/rti/public/Buro", "periodicity":"D",
+                           "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":false },
+                "filter": [
+                    {"filter1":""}
+                ],
+                "select": [
+                    {"select1":["num_cred","cod_producto","cod_subproducto","cod_moneda","cod_periodo_capital","TRANSLATE(put(fec_info,yymmdd10.),'','.') as fec_info","TRANSLATE(put(fec_formaliza,yymmdd10.),'','.') as fec_formaliza","num_plazo_remanente_dias","TRANSLATE(put(fec_ult_amort_incump_cap,yymmdd10.),'','.') as fec_ult_amort_incump_cap","TRANSLATE(put(fec_ult_amort_incump_int,yymmdd10.),'','.') as fec_ult_amort_incump_int","put(imp_int_suspen_mo,11.4) as imp_int_suspen_mo","put(imp_int_exig_mo,11.4) as imp_int_exig_mo","put(imp_int_noexig_mo,11.4) as imp_int_noexig_mo","put(imp_cap_exig_mo,11.4) as imp_cap_exig_mo","put(imp_cap_noexig_mo,11.4) as imp_cap_noexig_mo","put(imp_limite_credito_mo,11.4) as imp_limite_credito_mo","put(imp_concedido_mo,11.4) as imp_concedido_mo","num_npv","TRANSLATE(put(fec_traspaso_vencido,yymmdd10.),'','.') as fec_traspaso_vencido","num_dias_atraso","TRANSLATE(put(fec_ult_amort_incump_int_mi,yymmdd10.),'','.') as fec_ult_amort_incump_int_mi","TRANSLATE(put(fec_ult_amort_incump_cap_mi,yymmdd10.),'','.') as fec_ult_amort_incump_cap_mi","num_cliente_operativo","num_cliente_seguimiento","num_cliente","cod_estado_credito","cod_entidad","desc_sistema_origen","TRANSLATE(put(fec_vencimiento,yymmdd10.),'','.') as fec_vencimiento","cod_periodo_intereses","put(imp_monto_cuota, 18.4) as imp_monto_cuota","num_suc_titular","imp_contingente","num_doctos_vencidos","TRANSLATE(put(fec_formaliza_ult_disp,yymmdd10.),'','.') as fec_formaliza_ult_disp","put(imp_tipo_cambio,11.4) as imp_tipo_cambio","flg_mora","put(imp_cap_exig_esp_mo,11.4) as imp_cap_exig_esp_mo","put(imp_cap_noexig_esp_mo,11.4) as imp_cap_noexig_esp_mo","put(imp_int_exig_esp_mo,11.4) as imp_int_exig_esp_mo","put(imp_int_noexig_esp_mo,11.4) as imp_int_noexig_esp_mo","put(imp_monto_cuota, 18.4) as imp_monto_cuota2","cod_bloqueo","desc_bloqueo","put(imp_lexp_sistema,11.4) as imp_lexp_sistema","desc_maxima_desagregacion"]}
+
+                ]
+            },
+        "HRC_CONTRATOS_BURO":{
+      "source":{
+                  "table":"perimetro_buro_yyyyMM","fileName":"HRC_CONTRATOS_BURO", "esquema":"BURO","query":false,
+                  "path":"/SASUser/RIESGO/rti/public/Buro",  "periodicity":"M",
+                  "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":false   },
+      "filter":[
+         {
+            "filter1":""
+         }
+      ],
+      "select":[
+         {
+               "select1":["num_cred","cod_producto","cod_subproducto","cod_moneda","cod_periodo_capital","TRANSLATE(put(fec_info,yymmdd10.),'','.') as fec_info","TRANSLATE(put(fec_formaliza,yymmdd10.),'','.') as fec_formaliza","num_plazo_remanente_dias","TRANSLATE(put(fec_ult_amort_incump_cap,yymmdd10.),'','.') as fec_ult_amort_incump_cap","TRANSLATE(put(fec_ult_amort_incump_int,yymmdd10.),'','.') as fec_ult_amort_incump_int","put(imp_int_suspen_mo,11.4) as imp_int_suspen_mo","put(imp_int_exig_mo,11.4) as imp_int_exig_mo","put(imp_int_noexig_mo,11.4) as imp_int_noexig_mo","put(imp_cap_exig_mo,11.4) as imp_cap_exig_mo","put(imp_cap_noexig_mo,11.4) as imp_cap_noexig_mo","put(imp_limite_credito_mo,11.4) as imp_limite_credito_mo","put(imp_concedido_mo,11.4) as imp_concedido_mo","num_npv","TRANSLATE(put(fec_traspaso_vencido,yymmdd10.),'','.') as fec_traspaso_vencido","num_dias_atraso","TRANSLATE(put(fec_ult_amort_incump_int_mi,yymmdd10.),'','.') as fec_ult_amort_incump_int_mi","TRANSLATE(put(fec_ult_amort_incump_cap_mi,yymmdd10.),'','.') as fec_ult_amort_incump_cap_mi","num_cliente_operativo","num_cliente_seguimiento","num_cliente","cod_estado_credito","cod_entidad","put(coalesce(imp_gtias_real_inm_mo,0),18.4) as imp_gtias_real_inm_mo","desc_sistema_origen","flg_mora_dias","TRANSLATE(put(fec_vencimiento,yymmdd10.),'','.') as fec_vencimiento","flg_quita_reestructura","put(imp_quita,11.4) as imp_quita","cod_periodo_intereses","put(imp_castigo,11.4) as imp_castigo","put(imp_monto_cuota, 18.4) as imp_monto_cuota","num_dias_atraso_peor","num_suc_titular","put(imp_contingente,11.4) as imp_contingente","num_doctos_vencidos","TRANSLATE(put(fec_formaliza_ult_disp,yymmdd10.),'','.') as fec_formaliza_ult_disp","put(imp_tipo_cambio,11.4) as imp_tipo_cambio","flg_mora","put(imp_cap_exig_esp_mo,11.4) as imp_cap_exig_esp_mo","put(imp_cap_noexig_esp_mo,11.4) as imp_cap_noexig_esp_mo","put(imp_int_exig_esp_mo,11.4) as imp_int_exig_esp_mo","put(imp_int_noexig_esp_mo,11.4) as imp_int_noexig_esp_mo","num_pan","put(imp_monto_cuota, 18.4) as imp_monto_cuota2","cod_bloqueo","desc_bloqueo","put(imp_lexp_sistema,11.4) as imp_lexp_sistema","desc_maxima_desagregacion"]
+        }
+      ]
+   },
+        "GARANTIAS_MENSUAL":{
+            "source":{"table":"hrc_tm_garantias_yyyyMM","fileName":"GARANTIAS_MENSUAL","esquema":"HRC","query": false,
+            "path":"/SASUser/RIESGO/rti/public/hrc","periodicity":"M",
+            "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":true},
+            "filter":[
+                {"filter1":"desc_sistema_origen_gtia contains \"Altair\" and cod_estatus_gtia = \"A\""}
+            ],
+            "select": [
+                {"select1":["TRANSLATE(put(fec_info,yymmdd10.),'','.') as fec_info","desc_subtipo_gtia","cod_tipo_gtia","cod_subtipo_gtia","put(imp_valor_actual_mo,11.4 )  as imp_valor_actual_mo","cod_moneda_gtia","num_cred","num_gtia","put(pct_cobertura,11.14 )  as pct_cobertura","TRANSLATE(put(fec_vencimiento_gtia,yymmdd10.),'','.') as fec_vencimiento_gtia","desc_tipo_bien","cod_clase_gtia","desc_cod_clase_gtia","put(pct_cobertura_fdf,11.4 )  as pct_cobertura_fdf","desc_subestado_fdf","imp_disponible_fdf","imp_disponible_fdf_act","num_gtia_bolsa_fdf","desc_tipo_programa_fdf","cod_tipo_programa_fdf","desc_tipo_gtia","put(imp_avaluo,11.4 )  as imp_avaluo","imp_tipo_cambio","desc_tipo_fondo_fdf"]}
+
+
+    ]},
+
+        "TIPOS_CAMBIO_HRC_MENSUAL":{
+                "source": {"table":"hrc_cat_tipos_cambio", "fileName":"TIPOS_CAMBIO_HRC_MENSUAL","query": false,
+                           "esquema":"HRC", "path":"/SASUser/RIESGO/rti/public/catalogos", "periodicity":"M",
+                           "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":false },
+                "filter": [
+                    {"filter1":""}
+                ],
+                "select": [
+
+                    {"select1":["put(datepart('fecha'n),  YYMMDD10.)||' 00:00:00.0' as fecha","cve_moneda","COALESCE(tc,0) as tc"]}
+                ]
+    },
+       "HRC_GARANTIAS_BURO_MENSUAL":{
+                    "source": {"table":"hrc_tm_garantias_yyyyMM", "fileName":"HRC_GARANTIAS_BURO_MENSUAL","query": true,
+                            "esquema":"HRC", "path":"/SASUser/RIESGO/rti/public/hrc", "periodicity":"M",
+                            "outputFileName":"/data/axiom/nodo01/tmps/","separator":"|","header":true },
+                    "filter": [
+                        {"filter1":""}
+                    ],
+                    "select": [
+
+                        {"select1":[""]}
+                    ],
+                    "query": [
+                                {   "query1": ["SELECT",
+                                     " num_gtia,num_cred,cod_tipo_gtia,desc_tipo_gtia,cod_clase_gtia,desc_cod_clase_gtia,cod_subtipo_gtia,put(imp_valor_final, 10.4) as imp_valor_final,num_cliente_gtia_personal",
+                                        " FROM HRC.hrc_tm_garantias_yyyyMM ",
+                                        "    where num_cred IN(SELECT num_cred FROM HRC.hrc_tm_creditos_yyyyMM ) "
+                                    ]
+                                }
+                            ]
+            },
+        "sourceSas209":{
+                "source":{"table":"CARS","fileName":"CARS","esquema":"SASHELP","path":"","periodicity":"D", "query": false,"outputFileName":"/data/axiom/Default_py/","separator":"|","header":true},
+                "filter":[
+                    {"filter1":"Make = \"Acura\""}
+                    ,{"filter2":"Make = \"Volkswagen\""}
+                    ,{"filter3":"Type = \"Sedan\""}
+
+                ],
+                "select": [
+                    {"select1":["Make","Model","Type","Origin","EngineSize"]}
+                    ,{"select2":["Make","Model","Type","Origin","EngineSize","Weight","Invoice","Horsepower","MSRP"]}
+
+                ]},
+        "querySource":{
+            "source":{"table":"CARS","fileName":"CARSoutput",
+                      "esquema":"SASHELP","path":"","periodicity":"D", "query": true, "outputFileName":"/data/axiom/Default_py/","separator":"|","header":true},
+            "filter":[
+                {"filter1":""}
+
+            ],
+            "select": [
+                    {"select1":["Make","Model","Type","Origin","EngineSize"]}
+                ],
+            "query": [
+                {"query1": ["SELECT",
+                            "    MSRP,  Invoice,  EngineSize,  Cylinders  ",
+                            "FROM SASHELP.CARS",
+                            "    where MSRP in (SELECT  MSRP  FROM SASHELP.CARS)"
+                            ]},
+                {"query2": ["SELECT",
+                            "    Invoice, MSRP,  EngineSize",
+                            "FROM SASHELP.CARS",
+                            "    where Invoice in (SELECT  Invoice  FROM SASHELP.CARS)"
+                            ]}
+            ]
+        }
+    }
+}
